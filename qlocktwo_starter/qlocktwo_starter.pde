@@ -25,7 +25,7 @@ color black = color(0, 0, 0);
 color brown = color(255, 228, 181);
 color grey = color(50, 50, 50);
 color white = color(255, 255, 255);
-color random = color(123, 34, 77);
+color random = color(186,85,211);
 PFont dinFont;
 int autoMin = 42;
 int autoHour = 10;
@@ -54,7 +54,7 @@ void setup() {
 }
 
 void draw() {
-  background(random); // Set background color to random
+  changeBackgroundColor(); // Set background color to random, else with keystroke
   //get time
   int m = minute();  // Values from 0 - 59
   int h = hour()%12;    // Values from 0-11
@@ -327,5 +327,23 @@ void drawMinutes(int m) {
   if(mMod5 >= 4) {
     fill(white);
     circle(xWidth-margin, yHeight-margin, 5); //4 min over last 5;
+  }
+}
+
+void changeBackgroundColor() {
+  background(random);
+  if (keyPressed) {
+    if (key == 'b' || key == 'B') {
+      random = color(70,130,180);
+    }
+    if (key == 'r' || key == 'R') {
+      random = color(186,85,211);
+    }
+    if (key == 'g' || key == 'G') {
+      random = color(107,142,35);
+    }
+    if (key == 'c' || key == 'C') {
+      random = color(255,127,80);
+    }
   }
 }
