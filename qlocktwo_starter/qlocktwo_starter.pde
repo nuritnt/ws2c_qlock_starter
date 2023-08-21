@@ -31,6 +31,7 @@ int autoMin = 42;
 int autoHour = 10;
 int margin = 30;
 
+
 char[] de = {'E', 'S', 'K', 'I', 'S', 'T', 'A', 'F', 'Ü', 'N', 'F', //10
   'Z', 'E', 'H', 'N', 'B', 'Y', 'G', 'V', 'O', 'R', 'G', //21
   'N', 'A', 'C', 'H', 'V', 'I', 'E', 'R', 'T', 'E', 'L', //32
@@ -72,13 +73,9 @@ void draw() {
     }
     text(de[i], 5*margin+50*(i%11), y);
   }
-  //draw dots for m
-  fill(grey);
-  noStroke();
-  circle(margin, margin, 5); //1 min over last 5
-  circle(xWidth-margin, margin, 5); //2 min over last 5
-  circle(margin, yHeight-margin, 5); //3 min over last 5
-  circle(xWidth-margin, yHeight-margin, 5); //4 min over last 5
+
+  drawMinutes(m);
+  
 }
 
 /* 
@@ -302,4 +299,33 @@ void setVIERTEL(IntList onIdx) {
   onIdx.append(30);
   onIdx.append(31);
   onIdx.append(32);
+}
+
+void drawMinutes(int m) {
+  //draw dots for m
+  fill(grey);
+  noStroke();
+  circle(margin, margin, 5); //1 min over last 5
+  circle(xWidth-margin, margin, 5); //2 min over last 5
+  circle(margin, yHeight-margin, 5); //3 min over last 5
+  circle(xWidth-margin, yHeight-margin, 5); //4 min over last 5
+  
+  // fill dots white if minute
+  int mMod5 = m % 5;
+  if(mMod5 >= 1) {
+    fill(white);
+    circle(margin, margin, 5); //1 min over last 5
+  }
+  if (mMod5 >= 2) {
+    fill(white);
+    circle(xWidth-margin, margin, 5); //2 min over last 5
+  }
+  if (mMod5 >= 3) {
+    fill(white);
+    circle(margin, yHeight-margin, 5); //3 min over last 5
+  }
+  if(mMod5 >= 4) {
+    fill(white);
+    circle(xWidth-margin, yHeight-margin, 5); //4 min over last 5;
+  }
 }
