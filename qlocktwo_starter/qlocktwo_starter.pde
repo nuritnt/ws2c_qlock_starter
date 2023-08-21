@@ -30,6 +30,9 @@ PFont dinFont;
 int autoMin = 42;
 int autoHour = 10;
 int margin = 30;
+boolean isDemoMode = false;
+int m;
+int h;
 
 
 char[] de = {'E', 'S', 'K', 'I', 'S', 'T', 'A', 'F', 'Ü', 'N', 'F', //10
@@ -55,10 +58,20 @@ void setup() {
 
 void draw() {
   changeBackgroundColor(); // Set background color to random, else with keystroke
-  //get time
-  int m = minute();  // Values from 0 - 59
-  int h = hour()%12;    // Values from 0-11
   frameRate(60);
+  if (key == 'd' || key == 'D') {
+    isDemoMode = !isDemoMode;
+  }
+  if(isDemoMode) {
+    //get time
+    m = autoMin;
+    h = autoHour;
+  } else {
+    //get time
+    //get time
+    m = minute();  // Values from 0 - 59
+    h = hour()%12;    // Values from 0-11
+  }
   IntList onIndicies = getOnIndicies(h, m);
   //draw Letters
   int y = (int)(4.5*margin);
@@ -75,7 +88,6 @@ void draw() {
   }
 
   drawMinutes(m);
-  
 }
 
 /* 
