@@ -19,6 +19,7 @@
  *  ZWÖLF UNK UHR
  **/
 
+/* Define variables */
 int xWidth, yHeight;
 color black = color(0, 0, 0);
 color brown = color(255, 228, 181);
@@ -43,8 +44,8 @@ char[] de = {'E', 'S', 'K', 'I', 'S', 'T', 'A', 'F', 'Ü', 'N', 'F', //10
 };
 
 void setup() {
-  size(800, 800);
-  dinFont = createFont("DIN-Light.ttf", 40);
+  size(800, 800);  /* create "canvas" or area that will be visible */
+  dinFont = createFont("DIN-Light.ttf", 40);  /* Import custom font */
   textFont(dinFont);
   textAlign(CENTER);
   xWidth = 800;
@@ -52,7 +53,7 @@ void setup() {
 }
 
 void draw() {
-  background(random);
+  background(random); // Set background color to random
   //get time
   int m = minute();  // Values from 0 - 59
   int h = hour()%12;    // Values from 0-11
@@ -64,7 +65,7 @@ void draw() {
     if (i%11==0) {
       y += 50;
     }
-    if (onIndicies.hasValue(i)) {
+    if (onIndicies.hasValue(i)) {  // if value is "onIndicies" the value will be set to white 
       fill(white);
     } else {
       fill(grey);
@@ -80,6 +81,10 @@ void draw() {
   circle(xWidth-margin, yHeight-margin, 5); //4 min over last 5
 }
 
+/* 
+  Takes the current hour and minute as inputs and returns an IntList (a type of list) 
+  containing indices of characters that need to be displayed for the given time. 
+*/
 IntList getOnIndicies(int h, int m) {
   int m5 = m-m%5; //round to lower 5 min.
   //over and on 20 min. past h show next hour value
