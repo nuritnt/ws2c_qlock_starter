@@ -31,11 +31,36 @@ int autoMin = 42;
 int autoHour = 10;
 int margin = 30;
 boolean isDemoMode = false;
-int m;
-int h;
+int m = minute();
+int h = hour()%12;
+
 
 
 char[] de = {'E', 'S', 'K', 'I', 'S', 'T', 'A', 'F', 'Ü', 'N', 'F', //10
+  'Z', 'E', 'H', 'N', 'B', 'Y', 'G', 'V', 'O', 'R', 'G', //21
+  'N', 'A', 'C', 'H', 'V', 'I', 'E', 'R', 'T', 'E', 'L', //32
+  'H', 'A', 'L', 'B', 'V', 'O', 'R', 'N', 'A', 'C', 'H', //43
+  'E', 'I', 'N', 'S', 'L', 'M', 'E', 'Z', 'W', 'E', 'I', //54
+  'D', 'R', 'E', 'I', 'A', 'U', 'J', 'V', 'I', 'E', 'R', //65
+  'F', 'Ü', 'N', 'F', 'T', 'O', 'S', 'E', 'C', 'H', 'S', //76
+  'S', 'I', 'E', 'B', 'E', 'N', 'L', 'A', 'C', 'H', 'T', //87
+  'N', 'E', 'U', 'N', 'Z', 'E', 'H', 'N', 'E', 'L', 'F', //98
+  'Z', 'W', 'Ö', 'L', 'F', 'U', 'N', 'K', 'U', 'H', 'R' //109
+};
+
+char[] ch = {'E', 'S', 'K', 'I', 'S', 'H', 'A', 'F', 'Ü', 'N', 'F', //10
+  'Z', 'Ä', 'Ä', 'Ä', 'B', 'Y', 'G', 'V', 'O', 'R', 'G', //21
+  'A', 'A', 'B', 'B', 'V', 'I', 'E', 'R', 'T', 'E', 'L', //32
+  'H', 'A', 'L', 'B', 'V', 'O', 'R', 'N', 'A', 'C', 'H', //43
+  'E', 'I', 'N', 'S', 'L', 'M', 'E', 'Z', 'W', 'E', 'I', //54
+  'D', 'R', 'E', 'I', 'A', 'U', 'J', 'V', 'I', 'E', 'R', //65
+  'F', 'Ü', 'N', 'F', 'T', 'O', 'S', 'E', 'C', 'H', 'S', //76
+  'S', 'I', 'E', 'B', 'E', 'N', 'L', 'A', 'C', 'H', 'T', //87
+  'N', 'E', 'U', 'N', 'Z', 'E', 'H', 'N', 'E', 'L', 'F', //98
+  'Z', 'W', 'Ö', 'L', 'F', 'U', 'N', 'K', 'U', 'H', 'R' //109
+};
+
+char[] en = {'E', 'S', 'K', 'I', 'S', 'T', 'A', 'F', 'Ü', 'N', 'F', //10
   'Z', 'E', 'H', 'N', 'B', 'Y', 'G', 'V', 'O', 'R', 'G', //21
   'N', 'A', 'C', 'H', 'V', 'I', 'E', 'R', 'T', 'E', 'L', //32
   'H', 'A', 'L', 'B', 'V', 'O', 'R', 'N', 'A', 'C', 'H', //43
@@ -58,20 +83,21 @@ void setup() {
 
 void draw() {
   changeBackgroundColor(); // Set background color to random, else with keystroke
-  frameRate(60);
-  if (key == 'd' || key == 'D') {
-    isDemoMode = !isDemoMode;
-  }
+  frameRate(10);
   if(isDemoMode) {
     //get time
-    m = autoMin;
-    h = autoHour;
+    m = m+1;
+    if(m >=60){
+      m = 0;
+      h = h+1;
+    }
   } else {
     //get time
     //get time
     m = minute();  // Values from 0 - 59
     h = hour()%12;    // Values from 0-11
   }
+
   IntList onIndicies = getOnIndicies(h, m);
   //draw Letters
   int y = (int)(4.5*margin);
@@ -87,7 +113,7 @@ void draw() {
     text(de[i], 5*margin+50*(i%11), y);
   }
 
-  drawMinutes(m);
+  drawMinutes();
 }
 
 /* 
@@ -313,7 +339,7 @@ void setVIERTEL(IntList onIdx) {
   onIdx.append(32);
 }
 
-void drawMinutes(int m) {
+void drawMinutes() {
   //draw dots for m
   fill(grey);
   noStroke();
@@ -339,6 +365,12 @@ void drawMinutes(int m) {
   if(mMod5 >= 4) {
     fill(white);
     circle(xWidth-margin, yHeight-margin, 5); //4 min over last 5;
+  }
+}
+
+void keyReleased(){
+   if (key == 'd' || key == 'D') {
+    isDemoMode = !isDemoMode;
   }
 }
 
